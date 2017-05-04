@@ -110,9 +110,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Binary_Search_Tree.h" />
-    <ClInclude Include="Binary_Tree.h" />
-    <ClInclude Include="BTNode.h" />
     <ClInclude Include="MorseCode.h" />
     <ClInclude Include="MorseTree.h" />
   </ItemGroup>
@@ -120,6 +117,9 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MorseCode.cpp" />
     <ClCompile Include="MorseTree.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="morse.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

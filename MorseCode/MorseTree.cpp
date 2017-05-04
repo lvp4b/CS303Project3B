@@ -1,53 +1,90 @@
 #include "MorseTree.h"
 #include <iostream>
+#include <stack>
+
+using namespace std;
 
 MorseTree::MorseTree()
 {
-	root = new Node;
+	root = new Node();
 }
 
-void MorseTree::insertNode(char letter, const std::string& morseCode)
+void MorseTree::insertNode(char letter, const string& morseCode)
 {
-	Node *currentRoot = root;
+	Node* current = root;
+
+	// Read each morse code symbol
 	for (int i = 0; i <= morseCode.length(); ++i)
 	{
-		if(morseCode[i] == '.')
+		// Dots traverse to the left child in the subtree
+		if (morseCode[i] == '.')
 		{
-			if (currentRoot->left == nullptr)
+			// Ensure left child exists
+			if (current->left == nullptr)
 			{
-				currentRoot->left = new Node;
+				current->left = new Node();
 			}
-			currentRoot = currentRoot->left;
+			current = current->left;
 		}
+
+		// Dashes traverse to the right child in the subtree
 		else if (morseCode[i] == '-' || morseCode[i] == '_')
 		{
-			if(currentRoot->right == nullptr)
+			// Ensure right child exists
+			if (current->right == nullptr)
 			{
-				currentRoot->right = new Node;
+				current->right = new Node();
 			}
-			currentRoot = currentRoot->right;
+			current = current->right;
 		}
 	}
-	currentRoot->letter = letter;
+
+	current->letter = tolower(letter);
 }
 
-std::string MorseTree::getLetter(std::string morseCode)
+string MorseTree::getLetter(const string& morseCode) const
 {
-	Node * currentNode = root;
+	Node* current = root;
+
 	for (int i = 0; i <= morseCode.length(); ++i)
 	{
-		if(currentNode == nullptr)
+		// Returns a space if current node doesn't exist
+		if (current == nullptr)
 		{
-			return "";
+			return " ";
 		}
 		else if (morseCode[i] == '.')
 		{
-			currentNode = currentNode->left;
+			current = current->left;
 		}
 		else if (morseCode[i] == '-' || morseCode[i] == '_')
 		{
-			currentNode = currentNode->right;
+			current = current->right;
 		}
 	}
-	return currentNode->letter;
+
+	return current->letter;
+}
+
+MorseTree::~MorseTree()
+{
+	// Delete each node using a pre-order traversal
+	stack<Node*> stack;
+	stack.push(root);
+	while (!stack.empty())
+	{
+		Node* current = stack.top();
+		stack.pop();
+
+		if (current->right != nullptr)
+		{
+			stack.push(current->right);
+		}
+		if (current->left != nullptr)
+		{
+			stack.push(current->left);
+		}
+
+		delete current;
+	}
 }

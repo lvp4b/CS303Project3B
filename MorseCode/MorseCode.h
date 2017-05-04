@@ -1,28 +1,21 @@
 #pragma once
 #include <map>
-#include "BTNode.h"
 #include "MorseTree.h"
 
-struct Tree
-{
-	Tree();
-	char letter;
-	Tree *left;
-	Tree *right;
-};
-
+// Processes morse code
 class MorseCode
 {
 public:
+	// Initializes this processor using the morse code mapping from file input
 	MorseCode(std::ifstream& in);
 
-	std::string decode(std::string message);
+	// Decodes a morse code message
+	std::string decode(const std::string& morseCode) const;
 
-	std::string encode(std::string charString);
+	// Encodes a string into morse code
+	std::string encode(const std::string& message) const;
 
 private:
 	std::map<char, std::string> morseByLetter;
-	void buildTree(char key);
 	MorseTree tree;
 };
-

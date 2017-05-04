@@ -1,45 +1,57 @@
 #include "MorseCode.h"
+#include "MorseTree.h"
 #include <string>
 #include <sstream>
 #include <fstream>
-#include "MorseTree.h"
-#include <iostream>
 
 using namespace std;
 
-MorseCode::MorseCode(std::ifstream& in)
+MorseCode::MorseCode(ifstream& in)
 {
 	string line;
-	while(getline(in, line))
+
+	// Read and process each line
+	while (getline(in, line))
 	{
+		// line: <letter><morse code>
 		morseByLetter[line[0]] = line.substr(1);
 		tree.insertNode(line[0], line.substr(1));
 	}
 }
 
-std::string MorseCode::decode(std::string message)
+string MorseCode::decode(const string& morseCode) const
 {
 	string result;
-	string tempStr;
-	stringstream str(message);
+	string code;
+	stringstream stream(morseCode);
 
-	while (str >> tempStr)
+	// Split message by whitespace
+	while (stream >> code)
 	{
-		result += tree.getLetter(tempStr);
+		result += tree.getLetter(code);
+
+		// Add a space if the next symbol is empty
+		stream.seekg(1, ios_base::cur);
+		if (stream.peek() == ' ')
+		{
+			result += ' ';
+		}
 	}
 	return result;
 }
 
-std::string MorseCode::encode(std::string charString)
+string MorseCode::encode(const string& message) const
 {
-	stringstream s;
-	for (int i = 0; i != charString.size(); i++)
+	stringstream stream;
+	for (int i = 0; i != message.size(); i++)
 	{
-		s << morseByLetter[tolower(charString[i])];
-	}
-	return s.str();
-}
+		stream << " ";
 
-void MorseCode::buildTree(char key)
-{
+		auto morse = morseByLetter.find(tolower(message[i]));
+		if (morse != morseByLetter.end())
+		{
+			stream << morse->second;
+		}
+	}
+	return stream.str().substr(1);
 }

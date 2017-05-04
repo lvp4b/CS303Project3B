@@ -1,20 +1,28 @@
+// Lia Vang
+// lvp4b@mail.umkc.edu
+// Project 3B
+// CS 303
+
 #include "MorseCode.h"
 #include <fstream>
 #include <iostream>
 #include <string>
-#include "MorseTree.h"
+
 using namespace std;
 
 int main()
 {
 	ifstream fin("morse.txt");
-	MorseCode morse_code(fin);
+	const MorseCode morse_code(fin);
 
-	cout << morse_code.encode("hello") << endl;
-	cout << morse_code.encode("h") << endl;
-	cout << morse_code.decode("... --- ...") << endl;
+	const string word = "The five boxing wizards jump quickly";
+	string morse = morse_code.encode(word);
+	cout << "Words to encode: " << word << endl;
+	cout << morse << endl << endl;
 
-	//tree.insertNode('.', fin.get());
+	cout << "Morse to decode: " << morse << endl;
+	cout << morse_code.decode(morse) << endl;
+
 	fin.close();
 
 	system("PAUSE");
