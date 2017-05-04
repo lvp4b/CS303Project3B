@@ -38,7 +38,6 @@ public:
 	/** Virtual destructor to avoid warnings */
 	virtual ~Binary_Tree() {} // Do nothing.
 
-
 	/** Return the left subtree. */
 	Binary_Tree<Item_Type> get_left_subtree() const;
 

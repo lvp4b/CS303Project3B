@@ -27,12 +27,18 @@
     <ClInclude Include="MorseCode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MorseTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MorseCode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MorseTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

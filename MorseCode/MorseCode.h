@@ -1,6 +1,7 @@
 #pragma once
-#include <fstream>
 #include <map>
+#include "BTNode.h"
+#include "MorseTree.h"
 
 struct Tree
 {
@@ -15,12 +16,13 @@ class MorseCode
 public:
 	MorseCode(std::ifstream& in);
 
-	std::string decode(std::string code);
+	std::string decode(std::string message);
 
 	std::string encode(std::string charString);
 
 private:
 	std::map<char, std::string> morseByLetter;
 	void buildTree(char key);
+	MorseTree tree;
 };
 
