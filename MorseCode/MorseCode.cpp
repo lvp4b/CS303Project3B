@@ -21,23 +21,23 @@ MorseCode::MorseCode(ifstream& in)
 
 string MorseCode::decode(const string& morseCode) const
 {
-	string result;
+	stringstream result;
 	string code;
 	stringstream stream(morseCode);
 
 	// Split message by whitespace
 	while (stream >> code)
 	{
-		result += tree.getLetter(code);
+		result << tree.getLetter(code);
 
 		// Add a space if the next symbol is empty
 		stream.seekg(1, ios_base::cur);
 		if (stream.peek() == ' ')
 		{
-			result += ' ';
+			result << ' ';
 		}
 	}
-	return result;
+	return result.str();
 }
 
 string MorseCode::encode(const string& message) const
